@@ -10,9 +10,6 @@ RUN dotnet restore
 # Copy everything else and build
 COPY . ./
 
-# Include the Views folder
-COPY Views/ Views/
-
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
