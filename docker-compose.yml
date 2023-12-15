@@ -3,7 +3,7 @@ version: '3.9'
 services:
   csharpapp:
     container_name: csharpapp
-    image: Suni/csharpapp:1.0
+    image: anthony-suni/csharpapp:1.0
     build: .
     ports:
       - "8080:80"
