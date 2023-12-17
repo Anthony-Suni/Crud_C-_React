@@ -1,5 +1,5 @@
-using Models;
 using Microsoft.EntityFrameworkCore;
+using Models;
 
 namespace Data
 {
@@ -12,4 +12,3 @@ namespace Data
         public DbSet<Movie> Movies { get; set; }
     }
 }
-
