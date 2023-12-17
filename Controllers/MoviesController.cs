@@ -11,9 +11,9 @@ namespace csharp_crud_api.Controllers
     [Route("api/[controller]")]
     public class MoviesController : ControllerBase
     {
-        private readonly UserContext _context;
+        private readonly MovieContext _context;
 
-        public MoviesController(UserContext context)
+        public MoviesController(MovieContext context)
         {
             _context = context;
         }
