@@ -1,8 +1,8 @@
 -- Crear la base de datos
-CREATE DATABASE recomendaciones;
+CREATE DATABASE movierecommendation;
 
 -- Conectarse a la base de datos Recomendaciones
-\c recomendaciones;
+\c movierecommendation;
 
 -- Crear la tabla users
 CREATE TABLE users (
