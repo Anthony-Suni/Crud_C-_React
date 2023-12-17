@@ -16,9 +16,13 @@ builder.Services.AddSwaggerGen();
 
 var configuration = builder.Configuration;
 
-// Configuración de la base de datos para UserContext (que contiene ambas tablas)
-builder.Services.AddDbContext<UserContext>(options =>
-    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+// Configuración para UserContext
+services.AddDbContext<UserContext>(options =>
+ options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+// Configuración para MovieContext
+services.AddDbContext<MovieContext>(options =>
+  options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
 // Configuración CORS
 builder.Services.AddCors(options =>
