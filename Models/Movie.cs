@@ -14,8 +14,7 @@ namespace Models
         [Column("genero")]
         public string Genero { get; set; }
 
-        // Agregado: Este atributo indica que la columna 'ratings' es un array en la base de datos
-        [Column("ratings", TypeName = "integer[]")] 
+        [Column("ratings", TypeName = "int[]")] 
         public int[] Ratings { get; set; }
     }
 }
