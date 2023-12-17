@@ -1,10 +1,9 @@
 using Data;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +16,8 @@ builder.Services.AddSwaggerGen();
 
 var configuration = builder.Configuration;
 
-// Configuración de la base de datos para UserContext
+// Configuración de la base de datos para UserContext (que contiene ambas tablas)
 builder.Services.AddDbContext<UserContext>(options =>
-    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-
-// Configuración de la base de datos para MovieContext
-builder.Services.AddDbContext<MovieContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
 // Configuración CORS
@@ -56,5 +51,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
 
 
