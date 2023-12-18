@@ -1,86 +1,94 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models;
-using Data; // Asegúrate de tener la referencia correcta al espacio de nombres del contexto
+using Data;
 
-namespace csharp_crud_api.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class MoviesController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class MoviesController : ControllerBase
+    private readonly MovieContext _context;
+
+    public MoviesController(MovieContext context)
     {
-        private readonly MovieContext _context;
+        _context = context;
+    }
 
-        public MoviesController(MovieContext context)
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
+    {
+        return await _context.Movies.ToListAsync();
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Movie>> GetMovie(int id)
+    {
+        var movie = await _context.Movies.FindAsync(id);
+
+        if (movie == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        // GET: api/movies
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
+        return movie;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Movie>> PostMovie(Movie movie)
+    {
+        _context.Movies.Add(movie);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetMovie), new { id = movie.MovieId }, movie);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutMovie(int id, Movie movie)
+    {
+        if (id != movie.MovieId)
         {
-            return await _context.Movies.ToListAsync();
+            return BadRequest();
         }
 
-        // GET: api/movies/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> GetMovie(int id)
-        {
-            var movie = await _context.Movies.FindAsync(id);
+        _context.Entry(movie).State = EntityState.Modified;
 
-            if (movie == null)
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!MovieExists(id))
             {
                 return NotFound();
             }
-
-            return movie;
-        }
-
-        // POST api/movies
-        [HttpPost]
-        public async Task<ActionResult<Movie>> PostMovie(Movie movie)
-        {
-            _context.Movies.Add(movie);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetMovie), new { id = movie.MovieId }, movie);
-        }
-
-        // PUT api/movies/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMovie(int id, Movie movie)
-        {
-            if (id != movie.MovieId)
+            else
             {
-                return BadRequest();
+                throw;
             }
-
-            _context.Entry(movie).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
-        // DELETE api/movies/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMovie(int id)
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteMovie(int id)
+    {
+        var movie = await _context.Movies.FindAsync(id);
+        if (movie == null)
         {
-            var movie = await _context.Movies.FindAsync(id);
-
-            if (movie == null)
-            {
-                return NotFound();
-            }
-
-            _context.Movies.Remove(movie);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return NotFound();
         }
+
+        _context.Movies.Remove(movie);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+
+    private bool MovieExists(int id)
+    {
+        return _context.Movies.Any(e => e.MovieId == id);
     }
 }
 
