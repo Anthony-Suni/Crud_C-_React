@@ -14,8 +14,9 @@ namespace Models
         [Column("genero")]
         public string Genero { get; set; }
 
-        [Column("ratings", TypeName = "int[]")] 
-        public int[] Ratings { get; set; }
+       [Column("ratings", TypeName = "int[]")] 
+        public int[]? Ratings { get; set; }
+
     }
 }
 
