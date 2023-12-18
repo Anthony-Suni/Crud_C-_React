@@ -1,4 +1,11 @@
-{
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Models
+
+ [Table("ratings")]
+    public class Rating
+    {
         [Key]
         [Column("userId")]
         public int UserId { get; set; }
