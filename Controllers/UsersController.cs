@@ -9,11 +9,11 @@ namespace csharp_crud_api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RatingController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly RatingContext _context;
 
-        public RatingController(RatingContext context)
+        public UsersController(RatingContext context)
         {
             _context = context;
         }
