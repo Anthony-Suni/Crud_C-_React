@@ -8,7 +8,7 @@ namespace Models
     public class Rating
     {
         [Key]
-        [Column("userId")]
+        [Column("userid")]
         public int UserId { get; set; }
 
         [Key]
