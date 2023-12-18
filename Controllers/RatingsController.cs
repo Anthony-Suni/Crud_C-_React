@@ -20,7 +20,7 @@ public class RatingsController : ControllerBase
         return await _context.Ratings.ToListAsync();
     }
 
-    [HttpGet("{userId}/{movieId}")]
+    [HttpGet("{userid}/{movieid}")]
     public async Task<ActionResult<Rating>> GetRating(int userId, int movieId)
     {
         var rating = await _context.Ratings.FindAsync(userId, movieId);
@@ -42,7 +42,7 @@ public class RatingsController : ControllerBase
         return CreatedAtAction(nameof(GetRating), new { userId = rating.UserId, movieId = rating.MovieId }, rating);
     }
 
-    [HttpPut("{userId}/{movieId}")]
+    [HttpPut("{userid}/{movieid}")]
     public async Task<IActionResult> PutRating(int userId, int movieId, Rating rating)
     {
         if (userId != rating.UserId || movieId != rating.MovieId)
@@ -71,7 +71,7 @@ public class RatingsController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{userId}/{movieId}")]
+    [HttpDelete("{userid}/{movieid}")]
     public async Task<IActionResult> DeleteRating(int userId, int movieId)
     {
         var rating = await _context.Ratings.FindAsync(userId, movieId);
