@@ -1,9 +1,10 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
-
- [Table("ratings")]
+{
+    [Table("ratings")]
     public class Rating
     {
         [Key]
@@ -20,3 +21,4 @@ namespace Models
         [Column("timestamp")]
         public DateTime? Timestamp { get; set; }
     }
+}
