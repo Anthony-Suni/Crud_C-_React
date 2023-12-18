@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
@@ -5,18 +6,17 @@ namespace Models
     [Table("movies")]
     public class Movie
     {
-        [Column("id")]
+        [Key]
+        [Column("movieId")]
         public int Id { get; set; }
 
-        [Column("pelicula")]
+        [Column("title")]
         public string Pelicula { get; set; }
 
-        [Column("genero")]
+        [Column("genres")]
         public string Genero { get; set; }
-
-       [Column("ratings", TypeName = "int[]")] 
-        public int[]? Ratings { get; set; }
-
+        
     }
 }
+
 
