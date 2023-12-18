@@ -7,6 +7,11 @@ namespace Data
     {
         public DbSet<Rating> Ratings { get; set; }
 
+        // Constructor que acepta DbContextOptions
+        public RatingContext(DbContextOptions<RatingContext> options) : base(options)
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Rating>()
