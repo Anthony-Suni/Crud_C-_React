@@ -17,12 +17,12 @@ builder.Services.AddSwaggerGen();
 var configuration = builder.Configuration;
 
 // Configuración para UserContext
-services.AddDbContext<UserContext>(options =>
- options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<UserContext>(options =>
+    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
 // Configuración para MovieContext
-services.AddDbContext<MovieContext>(options =>
-  options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<MovieContext>(options =>
+    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
 // Configuración CORS
 builder.Services.AddCors(options =>
@@ -55,6 +55,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
 
 
 
