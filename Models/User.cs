@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,15 +12,15 @@ namespace Models
         public int Id { get; set; }
 
         [Column("gender")]
-        public string? Gender { get; set; } // Cambiado a string?
+        public string? Gender { get; set; }
 
         [Column("age")]
-        public int? Age { get; set; } // Cambiado a int?
+        public int? Age { get; set; }
 
         [Column("occupation")]
-        public string? Occupation { get; set; } // Cambiado a string?
+        public string? Occupation { get; set; }
 
         [Column("zip-code")]
-        public string? ZipCode { get; set; } // Cambiado a string?
+        public string? ZipCode { get; set; }
     }
 }
