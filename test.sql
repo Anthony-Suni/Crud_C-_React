@@ -6,19 +6,29 @@ CREATE DATABASE movierecommendation;
 
 -- Crear la tabla users
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    genero VARCHAR(255),
-    pelicula VARCHAR(255), 
-    rating INT 
+    userId INT PRIMARY KEY,
+    gender VARCHAR(255),
+    age INT,
+    occupation INT NULL,
+    zip_code VARCHAR(255) NULL
 );
 
--- Crear la tabla movies
+-- Crear la tabla 'ratings'
+CREATE TABLE ratings (
+    userId INT,
+    movieId INT,
+    rating FLOAT,
+    timestamp INT NULL,
+    PRIMARY KEY (userId, movieId),
+    FOREIGN KEY (userId) REFERENCES users(userId),
+    FOREIGN KEY (movieId) REFERENCES movies(movieId)
+);
+
+-- Crear la tabla 'movies'
 CREATE TABLE movies (
-    movieId SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    genres VARCHAR(255),
+    movieId INT PRIMARY KEY,
+    title VARCHAR(255),
+    genres VARCHAR(255) NULL
 );
 
 -- Puedes agregar más comandos SQL según sea necesario para tu aplicación.
