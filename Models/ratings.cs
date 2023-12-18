@@ -20,5 +20,8 @@ namespace Models
 
         [Column("timestamp")]
         public DateTime? Timestamp { get; set; }
+
+        [NotMapped]
+        public int Id => MovieId;
     }
 }
