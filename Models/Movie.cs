@@ -7,7 +7,7 @@ namespace Models
     public class Movie
     {
         [Key]
-        [Column("movieId")]
+        [Column("movieid")]
         public int MovieId { get; set; }
 
         [Column("title")]
