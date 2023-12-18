@@ -12,7 +12,7 @@ namespace Models
         public int UserId { get; set; }
 
         [Key]
-        [Column("movieId")]
+        [Column("movieid")]
         public int MovieId { get; set; }
 
         [Column("rating")]
