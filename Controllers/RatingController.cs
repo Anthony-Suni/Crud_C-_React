@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,49 +23,22 @@ namespace csharp_crud_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Rating>>> GetRatings()
         {
-            return await _context.Ratings.ToListAsync();
+            var ratings = await _context.Ratings.ToListAsync();
+            return Ok(ratings);
         }
 
-        // GET: api/ratings/user/5
-        [HttpGet("user/{userId}")]
-        public ActionResult<IEnumerable<Rating>> GetRatingsByUser(int userId)
+        // GET: api/ratings/5
+        [HttpGet("{userId}/{movieId}")]
+        public async Task<ActionResult<Rating>> GetRating(int userId, int movieId)
         {
-            var ratings = _context.Ratings.Where(r => r.UserId == userId).ToList();
-
-            if (!ratings.Any())
-            {
-                return NotFound();
-            }
-
-            return ratings;
-        }
-
-        // GET: api/ratings/movie/5
-        [HttpGet("movie/{movieId}")]
-        public ActionResult<IEnumerable<Rating>> GetRatingsByMovie(int movieId)
-        {
-            var ratings = _context.Ratings.Where(r => r.MovieId == movieId).ToList();
-
-            if (!ratings.Any())
-            {
-                return NotFound();
-            }
-
-            return ratings;
-        }
-
-        // GET: api/ratings/usermovie/{userId}/{movieId}
-        [HttpGet("usermovie/{userId}/{movieId}")]
-        public ActionResult<Rating> GetRatingByUserAndMovie(int userId, int movieId)
-        {
-            var rating = _context.Ratings.FirstOrDefault(r => r.UserId == userId && r.MovieId == movieId);
+            var rating = await _context.Ratings.FindAsync(userId, movieId);
 
             if (rating == null)
             {
                 return NotFound();
             }
 
-            return rating;
+            return Ok(rating);
         }
 
         // POST api/ratings
@@ -74,11 +48,11 @@ namespace csharp_crud_api.Controllers
             _context.Ratings.Add(rating);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetRatingByUserAndMovie), new { userId = rating.UserId, movieId = rating.MovieId }, rating);
+            return CreatedAtAction(nameof(GetRating), new { userId = rating.UserId, movieId = rating.MovieId }, rating);
         }
 
-        // PUT api/ratings/usermovie/5/1
-        [HttpPut("usermovie/{userId}/{movieId}")]
+        // PUT api/ratings/5
+        [HttpPut("{userId}/{movieId}")]
         public async Task<IActionResult> PutRating(int userId, int movieId, Rating rating)
         {
             if (userId != rating.UserId || movieId != rating.MovieId)
@@ -92,11 +66,11 @@ namespace csharp_crud_api.Controllers
             return NoContent();
         }
 
-        // DELETE api/ratings/usermovie/5/1
-        [HttpDelete("usermovie/{userId}/{movieId}")]
+        // DELETE api/ratings/5
+        [HttpDelete("{userId}/{movieId}")]
         public async Task<IActionResult> DeleteRating(int userId, int movieId)
         {
-            var rating = await _context.Ratings.FirstOrDefaultAsync(r => r.UserId == userId && r.MovieId == movieId);
+            var rating = await _context.Ratings.FindAsync(userId, movieId);
 
             if (rating == null)
             {
@@ -106,4 +80,36 @@ namespace csharp_crud_api.Controllers
             _context.Ratings.Remove(rating);
             await _context.SaveChangesAsync();
 
-            return NoCo
+            return NoContent();
+        }
+
+        // GET: api/ratings/user/5
+        [HttpGet("user/{userId}")]
+        public ActionResult<IEnumerable<Rating>> GetRatingsByUser(int userId)
+        {
+            var ratings = _context.Ratings.Where(r => r.UserId == userId).ToList();
+
+            if (!ratings.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(ratings);
+        }
+
+        // GET: api/ratings/movie/5
+        [HttpGet("movie/{movieId}")]
+        public ActionResult<IEnumerable<Rating>> GetRatingsByMovie(int movieId)
+        {
+            var ratings = _context.Ratings.Where(r => r.MovieId == movieId).ToList();
+
+            if (!ratings.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(ratings);
+        }
+    }
+}
+
