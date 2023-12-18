@@ -11,15 +11,15 @@ namespace Models
         public int Id { get; set; }
 
         [Column("gender")]
-        public string Gender { get; set; }
+        public string? Gender { get; set; } // Cambiado a string?
 
         [Column("age")]
-        public int? Age { get; set; }
+        public int? Age { get; set; } // Cambiado a int?
 
         [Column("occupation")]
-        public string Occupation { get; set; }
+        public string? Occupation { get; set; } // Cambiado a string?
 
         [Column("zip-code")]
-        public string ZipCode { get; set; }
+        public string? ZipCode { get; set; } // Cambiado a string?
     }
 }
