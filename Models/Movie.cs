@@ -11,10 +11,10 @@ namespace Models
         public int MovieId { get; set; }
 
         [Column("title")]
-        public string Title { get; set; }
+        public string? Title { get; set; } // Cambiado a string?
 
         [Column("genres")]
-        public string Genres { get; set; }
+        public string? Genres { get; set; } // Cambiado a string?
     }
 }
 
