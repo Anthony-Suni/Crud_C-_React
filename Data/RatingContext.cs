@@ -11,13 +11,5 @@ namespace Data
 
         public DbSet<Rating> Ratings { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // Configuraciones específicas de MovieContext si es necesario
-            // ...
-
-            modelBuilder.Entity<Rating>()
-                .HasKey(r => new { r.UserId, r.MovieId }); // Definir clave primaria compuesta
-        }
     }
 }
