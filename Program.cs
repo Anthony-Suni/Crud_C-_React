@@ -24,6 +24,11 @@ builder.Services.AddDbContext<UserContext>(options =>
 builder.Services.AddDbContext<MovieContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
+// Configuración para RatingContext
+builder.Services.AddDbContext<RatingContext>(options =>
+    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+
+
 // Configuración CORS
 builder.Services.AddCors(options =>
 {
