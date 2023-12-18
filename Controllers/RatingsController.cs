@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Models;
 using Data;
+using Microsoft.AspNetCore.Mvc;
+using Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,11 +23,10 @@ namespace csharp_crud_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Rating>>> GetRatings()
         {
-            var ratings = await _context.Ratings.ToListAsync();
-            return Ok(ratings);
+            return await _context.Ratings.ToListAsync();
         }
 
-        // GET: api/ratings/5/1
+        // GET: api/ratings/5
         [HttpGet("{userId}/{movieId}")]
         public async Task<ActionResult<Rating>> GetRating(int userId, int movieId)
         {
@@ -38,7 +37,7 @@ namespace csharp_crud_api.Controllers
                 return NotFound();
             }
 
-            return Ok(rating);
+            return rating;
         }
 
         // POST api/ratings
