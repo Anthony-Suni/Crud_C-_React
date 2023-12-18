@@ -9,7 +9,7 @@ namespace Models
     {
         [Key]
         [Column("userId")]
-        public int Id { get; set; }
+        public int userId { get; set; }
 
         [Column("gender")]
         public string? Gender { get; set; }
