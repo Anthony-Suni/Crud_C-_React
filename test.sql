@@ -14,15 +14,12 @@ CREATE TABLE users (
 );
 
 -- Crear la tabla 'ratings'
-CREATE TABLE ratings (
-    userId INT,
-    movieId INT,
-    rating FLOAT,
-    timestamp INT NULL,
-    PRIMARY KEY (userId, movieId),
-    FOREIGN KEY (userId) REFERENCES users(userId),
-    FOREIGN KEY (movieId) REFERENCES movies(movieId)
+CREATE TABLE movies (
+    movieId INT PRIMARY KEY,
+    title VARCHAR(255),
+    genres VARCHAR(255)
 );
+
 
 -- Crear la tabla 'movies'
 CREATE TABLE movies (
