@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Models;
-using Data;
+// ... (using statements)
 
 [ApiController]
 [Route("api/[controller]")]
@@ -15,13 +12,13 @@ public class RatingsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Rating>>> GetRatings()
+    public async Task<ActionResult<IEnumerable<Rating>>> GetRatingsAsync()
     {
         return await _context.Ratings.ToListAsync();
     }
 
     [HttpGet("{userid}/{movieid}")]
-    public async Task<ActionResult<Rating>> GetRating(int userId, int movieId)
+    public async Task<ActionResult<Rating>> GetRatingAsync([FromRoute] int userId, [FromRoute] int movieId)
     {
         var rating = await _context.Ratings.FindAsync(userId, movieId);
 
@@ -34,16 +31,16 @@ public class RatingsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Rating>> PostRating(Rating rating)
+    public async Task<ActionResult<Rating>> PostRatingAsync([FromBody] Rating rating)
     {
         _context.Ratings.Add(rating);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetRating), new { userId = rating.UserId, movieId = rating.MovieId }, rating);
+        return CreatedAtAction(nameof(GetRatingAsync), new { userId = rating.UserId, movieId = rating.MovieId }, rating);
     }
 
     [HttpPut("{userid}/{movieid}")]
-    public async Task<IActionResult> PutRating(int userId, int movieId, Rating rating)
+    public async Task<IActionResult> PutRatingAsync([FromRoute] int userId, [FromRoute] int movieId, [FromBody] Rating rating)
     {
         if (userId != rating.UserId || movieId != rating.MovieId)
         {
@@ -72,7 +69,7 @@ public class RatingsController : ControllerBase
     }
 
     [HttpDelete("{userid}/{movieid}")]
-    public async Task<IActionResult> DeleteRating(int userId, int movieId)
+    public async Task<IActionResult> DeleteRatingAsync([FromRoute] int userId, [FromRoute] int movieId)
     {
         var rating = await _context.Ratings.FindAsync(userId, movieId);
         if (rating == null)
@@ -91,4 +88,3 @@ public class RatingsController : ControllerBase
         return _context.Ratings.Any(e => e.UserId == userId && e.MovieId == movieId);
     }
 }
-
