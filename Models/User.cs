@@ -11,7 +11,7 @@ namespace Models
         public int Id { get; set; }
 
         [Column("gender")]
-        public string Genero { get; set; }
+        public string Gender { get; set; }
 
         [Column("age")]
         public int? Age { get; set; }
