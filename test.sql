@@ -5,32 +5,36 @@ CREATE DATABASE movierecommendation;
 \c movierecommendation;
 
 -- Crear la tabla users
-CREATE TABLE users (
-    userId INT PRIMARY KEY,
-    gender VARCHAR(255),
-    age INT,
-    occupation INT NULL,
-    zip_code VARCHAR(255) NULL
+CREATE TABLE users
+(
+   userid SERIAL PRIMARY KEY,
+   gender VARCHAR(255),
+   age INT,
+   occupation VARCHAR(255),
+   "zip-code" VARCHAR(255)
 );
 
+
 -- Crear la tabla 'ratings'
-CREATE TABLE movies (
-    movieId INT PRIMARY KEY,
-    title VARCHAR(255),
-    genres VARCHAR(255)
+CREATE TABLE ratings
+(
+   userId INT,
+   movieId INT,
+   rating INT,
+   timestamp TIMESTAMP,
+   PRIMARY KEY (userId, movieId)
 );
+
 
 
 -- Crear la tabla 'movies'
-CREATE TABLE ratings (
-    userId INT,
-    movieId INT,
-    rating FLOAT,
-    timestamp INT NULL,
-    PRIMARY KEY (userId, movieId),
-    FOREIGN KEY (userId) REFERENCES users(userId),
-    FOREIGN KEY (movieId) REFERENCES movies(movieId)
+CREATE TABLE movies
+(
+   movieId INT PRIMARY KEY,
+   title VARCHAR(255),
+   genres VARCHAR(255)
 );
+
 
 
 -- Puedes agregar más comandos SQL según sea necesario para tu aplicación.
