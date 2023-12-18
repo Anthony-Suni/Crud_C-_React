@@ -11,9 +11,9 @@ namespace csharp_crud_api.Controllers
     [Route("api/[controller]")]
     public class RatingsController : ControllerBase
     {
-        private readonly RatingsContext _context;
+        private readonly RatingContext _context;
 
-        public RatingsController(RatingsContext context)
+        public RatingsController(RatingContext context)
         {
             _context = context;
         }
@@ -26,7 +26,7 @@ namespace csharp_crud_api.Controllers
             return Ok(ratings);
         }
 
-        // GET: api/ratings/5
+        // GET: api/ratings/5/1
         [HttpGet("{userId}/{movieId}")]
         public async Task<ActionResult<Rating>> GetRating(int userId, int movieId)
         {
@@ -40,32 +40,46 @@ namespace csharp_crud_api.Controllers
             return Ok(rating);
         }
 
-        // GET: api/ratings/user/5
-        [HttpGet("user/{userId}")]
-        public ActionResult<IEnumerable<Rating>> GetRatingsByUser(int userId)
+        // POST api/ratings
+        [HttpPost]
+        public async Task<ActionResult<Rating>> PostRating(Rating rating)
         {
-            var ratings = _context.Ratings.Where(r => r.UserId == userId).ToList();
+            _context.Ratings.Add(rating);
+            await _context.SaveChangesAsync();
 
-            if (!ratings.Any())
-            {
-                return NotFound();
-            }
-
-            return Ok(ratings);
+            return CreatedAtAction(nameof(GetRating), new { userId = rating.UserId, movieId = rating.MovieId }, rating);
         }
 
-        // GET: api/ratings/movie/5
-        [HttpGet("movie/{movieId}")]
-        public ActionResult<IEnumerable<Rating>> GetRatingsByMovie(int movieId)
+        // PUT api/ratings/5/1
+        [HttpPut("{userId}/{movieId}")]
+        public async Task<IActionResult> PutRating(int userId, int movieId, Rating rating)
         {
-            var ratings = _context.Ratings.Where(r => r.MovieId == movieId).ToList();
+            if (userId != rating.UserId || movieId != rating.MovieId)
+            {
+                return BadRequest();
+            }
 
-            if (!ratings.Any())
+            _context.Entry(rating).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE api/ratings/5/1
+        [HttpDelete("{userId}/{movieId}")]
+        public async Task<IActionResult> DeleteRating(int userId, int movieId)
+        {
+            var rating = await _context.Ratings.FindAsync(userId, movieId);
+
+            if (rating == null)
             {
                 return NotFound();
             }
 
-            return Ok(ratings);
+            _context.Ratings.Remove(rating);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }
