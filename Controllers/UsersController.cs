@@ -1,7 +1,6 @@
-using Data;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Microsoft.EntityFrameworkCore;
+using Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,100 +9,120 @@ namespace csharp_crud_api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    public class RatingController : ControllerBase
     {
-        private readonly UserContext _context;
+        private readonly RatingContext _context;
 
-        public UsersController(UserContext context)
+        public RatingController(RatingContext context)
         {
             _context = context;
         }
 
-        // GET: api/users
+        // GET: api/ratings
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Rating>>> GetRatings()
         {
-            return await _context.Users.ToListAsync();
+            var ratings = await _context.Ratings.ToListAsync();
+            return Ok(ratings);
         }
 
-        // GET: api/users/5
+        // GET: api/ratings/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Rating>> GetRating(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var rating = await _context.Ratings.FindAsync(id);
 
-            if (user == null)
+            if (rating == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return rating;
         }
 
-        // POST api/users
+        // POST api/ratings
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Rating>> PostRating(Rating rating)
         {
-            _context.Users.Add(user);
+            _context.Ratings.Add(rating);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+            return CreatedAtAction(nameof(GetRating), new { id = rating.Id }, rating);
         }
 
-        // PUT api/users/5
+        // PUT api/ratings/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutRating(int id, Rating rating)
         {
-            if (id != user.Id)
+            if (id != rating.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(rating).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        // DELETE api/users/5
+        // DELETE api/ratings/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteRating(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var rating = await _context.Ratings.FindAsync(id);
 
-            if (user == null)
+            if (rating == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Ratings.Remove(rating);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        // GET: api/users/search
-        [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<User>>> SearchUsers([FromQuery] string query)
+        // GET: api/ratings/user/5
+        [HttpGet("user/{userId}")]
+        public ActionResult<IEnumerable<Rating>> GetRatingsByUser(int userId)
         {
-            var users = await _context.Users
-                .Where(u => EF.Functions.Like(u.Name, $"%{query}%") || EF.Functions.Like(u.Email, $"%{query}%"))
-                .ToListAsync();
+            var ratings = _context.Ratings.Where(r => r.UserId == userId).ToList();
 
-            if (users == null || !users.Any())
+            if (!ratings.Any())
             {
                 return NotFound();
             }
 
-            return users;
+            return Ok(ratings);
         }
 
-        // GET: api/users/test
-        [HttpGet("test")]
-        public string Test()
+        // GET: api/ratings/movie/5
+        [HttpGet("movie/{movieId}")]
+        public ActionResult<IEnumerable<Rating>> GetRatingsByMovie(int movieId)
         {
-            return "Hello World!";
+            var ratings = _context.Ratings.Where(r => r.MovieId == movieId).ToList();
+
+            if (!ratings.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(ratings);
         }
 
+        // GET: api/ratings/usermovie/5/1
+        [HttpGet("usermovie/{userId}/{movieId}")]
+        public ActionResult<Rating> GetRatingByUserAndMovie(int userId, int movieId)
+        {
+            var rating = _context.Ratings.FirstOrDefault(r => r.UserId == userId && r.MovieId == movieId);
+
+            if (rating == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(rating);
+        }
     }
 }
+
