@@ -1,0 +1,130 @@
+.container-carousel {
+    width: 100%;
+    height: 410px;
+    background-color: #131722;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-center {
+    width: 90%;
+    height: 90%;
+}
+
+.carousel-movies {
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.carousel {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.filters-carousel {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: fit-content;
+}
+
+.filter-text {
+    color: #606c79;
+    font-size: 15px;
+    margin-right: 0.8rem;
+}
+
+.btn-filter {
+    cursor: pointer;
+}
+
+.category-movies {
+    color: white;
+    font-size: 2rem;
+}
+
+.line-short {
+    display: flex;
+    width: 30%;
+    height: 2px;
+    background-color: #262933;  
+}
+
+.line-large {
+    display: flex;
+    width: 100%;
+    height: 2px;
+    background-color: #262933; 
+    margin-bottom: 15px; 
+}
+
+.actions-carousel {
+    display: flex;
+    flex-direction: row;
+    width: 75px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.arrow-move {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #474d5f;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-right {
+    transform: rotate(180deg);
+}
+
+.text-view {
+    color: #3f4555;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.container-movies {
+    width: 100%;
+    overflow-x: hidden;
+    margin: auto;
+}
+
+.data-movies {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.carousel-filters {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 660px) {
+    .container-carousel {
+        height: 680px;
+    }
+
+    .data-movies {
+        width: 75%;
+        margin: auto;
+        margin-top: 20px;
+    }
+
+    .carousel-filters {
+        margin: auto;
+    }
+
+    .carousel {
+        flex-direction: column !important;
+    }
+}
