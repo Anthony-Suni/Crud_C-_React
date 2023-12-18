@@ -8,7 +8,7 @@ namespace Models
     public class User
     {
         [Key]
-        [Column("userId")]
+        [Column("userid")]
         public int userId { get; set; }
 
         [Column("gender")]
