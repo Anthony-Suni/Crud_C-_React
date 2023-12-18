@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
@@ -5,22 +6,20 @@ namespace Models
     [Table("users")]
     public class User
     {
-        [Column("id")]
+        [Key]
+        [Column("userId")]
         public int Id { get; set; }
 
-        [Column("name")]
-        public string Name { get; set; }
-
-        [Column("email")]
-        public string Email { get; set; }
-
-        [Column("genero")] // Agregado: Asegúrate de que coincida con el nombre de la columna en tu base de datos
+        [Column("gender")]
         public string Genero { get; set; }
 
-        [Column("pelicula")] // Agregado: Asegúrate de que coincida con el nombre de la columna en tu base de datos
-        public string Pelicula { get; set; }
+        [Column("age")]
+        public int? Age { get; set; }
 
-        [Column("rating")] // Agregado: Asegúrate de que coincida con el nombre de la columna en tu base de datos
-        public int Rating { get; set; }
+        [Column("occupation")]
+        public string Occupation { get; set; }
+
+        [Column("zip-code")]
+        public string ZipCode { get; set; }
     }
 }
