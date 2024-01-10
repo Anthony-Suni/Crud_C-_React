@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-const url = 'http://ip172-18-0-19-clvo57ss9otg00988mhg-8080.direct.labs.play-with-docker.com/api/users';
+const url = 'http://ip172-18-0-17-cmfamdss9otg00859d4g-8080.direct.labs.play-with-docker.com/api/users';
 
 class UsersPage extends Component {
   state = {
