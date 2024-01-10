@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const url = 'http://ip172-18-0-14-clvg7qks9otg00adkgog-8080.direct.labs.play-with-docker.com/api/movies';
+const url = 'http://ip172-18-0-17-cmfamdss9otg00859d4g-8080.direct.labs.play-with-docker.com/api/movies';
 
 class RatingMovies extends Component {
   state = {
