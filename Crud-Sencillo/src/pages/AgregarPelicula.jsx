@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-const apiUrl = 'http://ip172-18-0-120-cm03sgqo7r5g00e6gefg-8080.direct.labs.play-with-docker.com/api/movies';
+const apiUrl = 'http://ip172-18-0-17-cmfamdss9otg00859d4g-8080.direct.labs.play-with-docker.com/api/movies';
 
 class AgregarPelicula extends Component {
   state = {
