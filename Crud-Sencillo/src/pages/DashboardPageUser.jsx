@@ -4,8 +4,8 @@ import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button, Form, FormGroup, Label, Input } from 'reactstrap'; // Importa los componentes necesarios
 
-const moviesApiUrl = 'http://ip172-18-0-120-cm03sgqo7r5g00e6gefg-8080.direct.labs.play-with-docker.com/api/movies';
-const ratingsApiUrl = 'http://ip172-18-0-120-cm03sgqo7r5g00e6gefg-8080.direct.labs.play-with-docker.com/api/ratings';
+const moviesApiUrl = 'http://ip172-18-0-17-cmfamdss9otg00859d4g-8080.direct.labs.play-with-docker.com/api/movies';
+const ratingsApiUrl = 'http://ip172-18-0-17-cmfamdss9otg00859d4g-8080.direct.labs.play-with-docker.com/api/ratings';
 
 class DashboardPageUser extends Component {
   state = {
