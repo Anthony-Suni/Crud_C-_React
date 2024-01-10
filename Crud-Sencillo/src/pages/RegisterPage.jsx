@@ -27,7 +27,7 @@ export const RegisterPage = () => {
       };
 
       // Realizar la petición POST al servidor API
-      const response = await fetch('http://ip172-18-0-37-clvuklks9otg00988vsg-8080.direct.labs.play-with-docker.com/api/users', {
+      const response = await fetch('http://ip172-18-0-17-cmfamdss9otg00859d4g-8080.direct.labs.play-with-docker.com/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
