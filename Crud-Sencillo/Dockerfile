@@ -13,11 +13,8 @@ RUN npm install
 # Copia el resto de los archivos del proyecto al directorio de trabajo
 COPY . .
 
-# Construye la aplicación React para producción
-RUN npm run build
-
 # Expone el puerto en el que se ejecutará la aplicación Vite
 EXPOSE 5173
 
 # Comando para ejecutar la aplicación en modo de desarrollo
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
